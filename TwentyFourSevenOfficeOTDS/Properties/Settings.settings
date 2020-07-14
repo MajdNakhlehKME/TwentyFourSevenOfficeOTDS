@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TwentyFourSevenOfficeOTDS.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TwentyFourSevenOfficeOTDS_TwentyFourSevenOffice_Services_Authenticate_Authenticate" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://api.24sevenoffice.com/authenticate/v001/authenticate.asmx</Value>
+    </Setting>
+    <Setting Name="TwentyFourSevenOfficeOTDS_TwentyFourSevenOffice_Services_Invoices_InvoiceService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://api.24sevenoffice.com/Economy/InvoiceOrder/V001/InvoiceService.asmx</Value>
+    </Setting>
+    <Setting Name="TwentyFourSevenOfficeOTDS_TwentyFourSevenOffice_Services_PersonService_PersonService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://webservices.24sevenoffice.com/CRM/Contact/PersonService.asmx</Value>
+    </Setting>
+    <Setting Name="TwentyFourSevenOfficeOTDS_TwentyFourSevenOffice_Services_ClientService_ClientService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://api.24sevenoffice.com/Client/V001/ClientService.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

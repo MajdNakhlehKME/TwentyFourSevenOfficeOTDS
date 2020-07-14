@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://webservices.24sevenoffice.com/CRM/Contact/PersonService.asmx?wsdl" docRef="http://webservices.24sevenoffice.com/CRM/Contact/PersonService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://webservices.24sevenoffice.com/CRM/Contact/PersonService.asmx" xmlns:q1="http://24sevenOffice.com/webservices" binding="q1:PersonServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://webservices.24sevenoffice.com/CRM/Contact/PersonService.asmx" xmlns:q2="http://24sevenOffice.com/webservices" binding="q2:PersonServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

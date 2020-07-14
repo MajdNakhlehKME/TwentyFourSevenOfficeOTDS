@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://api.24sevenoffice.com/Economy/InvoiceOrder/V001/InvoiceService.asmx?wsdl" docRef="http://api.24sevenoffice.com/Economy/InvoiceOrder/V001/InvoiceService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://api.24sevenoffice.com/Economy/InvoiceOrder/V001/InvoiceService.asmx" xmlns:q1="http://24sevenOffice.com/webservices" binding="q1:InvoiceServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://api.24sevenoffice.com/Economy/InvoiceOrder/V001/InvoiceService.asmx" xmlns:q2="http://24sevenOffice.com/webservices" binding="q2:InvoiceServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>
