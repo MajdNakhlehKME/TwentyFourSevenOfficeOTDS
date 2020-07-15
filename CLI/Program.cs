@@ -22,7 +22,7 @@ namespace CLI
 
 			#region Printing results
 			//Type of results we want to get:
-			dataConnection.PrepareForDataRetrieval("type=department");
+			dataConnection.PrepareForDataRetrieval("type=employee");
 
 			//// Retrieve data.
 			Console.WriteLine("Showing data: ");
