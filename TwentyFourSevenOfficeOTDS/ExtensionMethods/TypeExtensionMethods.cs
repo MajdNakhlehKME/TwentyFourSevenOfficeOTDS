@@ -19,11 +19,12 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 		/// <returns>Information about the properties and fields exposed by the type.</returns>
 		public static IEnumerable<ColumnDefinition> GetColumnDefinitions
 		(
-			this Type type
+			this Type type,
+			int ordinalStart = 0
 		)
 		{
 			// Counter for the ordinal/index.
-			var index = 0;
+			var index = ordinalStart;
 
 			// Grab the fields.
 			foreach (var fi in type.GetFields(BindingFlags.Instance | BindingFlags.Public ))
@@ -37,29 +38,33 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					&& fi.FieldType != typeof(bool)
 					&& fi.FieldType != typeof(long)
 					&& fi.FieldType != typeof(EmailAddress[])
+					&& fi.FieldType != typeof(Address)
 				)
 					continue;
 				
 				// Deal with addresses.
 				if(fi.FieldType == typeof(Address))
 				{
-					// Street.
-					yield return new ColumnDefinition()
+					// Return the properties and fields from the address.
+					var maxOrdinal = 0;
+					foreach(var columnDefinition in fi.FieldType.GetColumnDefinitions(index))
 					{
-						Ordinal = index++,
-						Name = fi.Name + " Street",
-						Type = typeof(string)
-					};
+						yield return new ColumnDefinition()
+						{
+							Ordinal = columnDefinition.Ordinal,
+							Name = fi.Name + "." + columnDefinition.Name,
+							Type = columnDefinition.Type
+						};
+						maxOrdinal = (columnDefinition.Ordinal > maxOrdinal)
+							? columnDefinition.Ordinal
+							: maxOrdinal;
+					}
 
-					// City.
-					yield return new ColumnDefinition()
-					{
-						Ordinal = index++,
-						Name = fi.Name + " City",
-						Type = typeof(string)
-					};
+					// Increment index.
+					index = maxOrdinal + 1;
 
-					// TODO: Any other address properties.
+					// Stop.
+					continue;
 				}
 				
 				// Deal with email addresses.
@@ -72,6 +77,7 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 						Name = fi.Name,
 						Type = typeof(string)
 					};
+					continue;
 				}
 
 				// Return the column definition.
@@ -99,29 +105,33 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					&& pi.PropertyType != typeof(bool)
 					&& pi.PropertyType != typeof(long)
 					&& pi.PropertyType != typeof(EmailAddress[])
+					&& pi.PropertyType != typeof(Address)
 				)
 					continue;
 				
 				// Deal with addresses.
 				if(pi.PropertyType == typeof(Address))
 				{
-					// Street.
-					yield return new ColumnDefinition()
+					// Return the properties and fields from the address.
+					var maxOrdinal = 0;
+					foreach(var columnDefinition in pi.PropertyType.GetColumnDefinitions(index))
 					{
-						Ordinal = index++,
-						Name = pi.Name + " Street",
-						Type = typeof(string)
-					};
+						yield return new ColumnDefinition()
+						{
+							Ordinal = columnDefinition.Ordinal,
+							Name = pi.Name + "." + columnDefinition.Name,
+							Type = columnDefinition.Type
+						};
+						maxOrdinal = (columnDefinition.Ordinal > maxOrdinal)
+							? columnDefinition.Ordinal
+							: maxOrdinal;
+					}
 
-					// City.
-					yield return new ColumnDefinition()
-					{
-						Ordinal = index++,
-						Name = pi.Name + " City",
-						Type = typeof(string)
-					};
+					// Increment index.
+					index = maxOrdinal + 1;
 
-					// TODO: Any other address properties.
+					// Stop.
+					continue;
 				}
 
 				// Deal with email addresses.

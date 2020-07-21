@@ -55,9 +55,33 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 			// Iterate over the property definitions.
 			foreach (var property in obj.GetType().GetProperties())
 			{
-				// Is this the right property?
-				if (property.Name != propertyOrFieldName)
-					continue;
+				// If it contains a dot then it's a sub-value.
+				if(propertyOrFieldName.Contains("."))
+				{
+					// Get the properties or fields.
+					var propertyOrFieldNames = propertyOrFieldName.Split(".".ToCharArray());
+
+					// If we are on the root one then we can do something, otherwise die.
+					if(property.Name == propertyOrFieldNames[0])
+					{
+						// Get rid of the first entry and go down the list.
+						return property
+							.GetValue(obj)
+							.GetValue(string.Join(".", propertyOrFieldNames.Skip(1)));
+					}
+					else
+					{
+						// Not this one.
+						continue;
+					}
+				}
+				else
+				{
+					// Simple property.
+					// Is this the right property?
+					if (property.Name != propertyOrFieldName)
+						continue;
+				}
 
 				// Try and read the value.
 				try
@@ -94,9 +118,32 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 			// Iterate over the field definitions.
 			foreach (var field in obj.GetType().GetFields())
 			{
-				// Is this the right field?
-				if (field.Name != propertyOrFieldName)
-					continue;
+				// If it contains a dot then it's a sub-value.
+				if(propertyOrFieldName.Contains("."))
+				{
+					// Get the properties or fields.
+					var propertyOrFieldNames = propertyOrFieldName.Split(".".ToCharArray());
+
+					// If we are on the root one then we can do something, otherwise die.
+					if(field.Name == propertyOrFieldNames[0])
+					{
+						// Get rid of the first entry and go down the list.
+						return field
+							.GetValue(obj)
+							.GetValue(string.Join(".", propertyOrFieldNames.Skip(1)));
+					}
+					else
+					{
+						// Not this one.
+						continue;
+					}
+				}
+				else
+				{
+					// Is this the right field?
+					if (field.Name != propertyOrFieldName)
+						continue;
+				}
 
 				// Try and read the value.
 				try

@@ -37,7 +37,7 @@ namespace CLI
 
 				foreach (var c in dataConnection.GetAvailableColumns())
 				{
-					Console.WriteLine("\tColumn: " + c.Name + "		Value: " + i.GetValue(c.Ordinal));
+					Console.WriteLine($"\tColumn: {c.Name} ({c.Ordinal})		Value: {i.GetValue(c.Ordinal)}");
 				}
 			}
 
