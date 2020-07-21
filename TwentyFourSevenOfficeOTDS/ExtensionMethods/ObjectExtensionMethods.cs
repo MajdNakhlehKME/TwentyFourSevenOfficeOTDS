@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MFiles.Server.Extensions;
+using TwentyFourSevenOfficeOTDS.TwentyFourSevenOffice.Services.ClientService;
 
 namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 {
@@ -63,9 +64,24 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 				try
 				{
 					var retVal =  property.GetValue(obj);
+
 					// If it's a long then convert to a string.
 					if (property.PropertyType == typeof(long))
 						retVal = retVal?.ToString();
+
+					// If it's a collection of email addresses then choose something suitable.
+					if(property.PropertyType == typeof(EmailAddress[]))
+					{
+						{
+							var value = retVal as EmailAddress[];
+							if (value == null)
+								return null;
+							if(value.Length == 0)
+								return null;
+							return value[0].Value;
+						}
+					}
+
 					return retVal;
 
 				}
@@ -87,9 +103,24 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 				try
 				{
 					var retVal = field.GetValue(obj);
+
 					// If it's a long then convert to a string.
 					if (field.FieldType == typeof(long))
 						retVal = retVal?.ToString();
+
+					// If it's a collection of email addresses then choose something suitable.
+					if(field.FieldType == typeof(EmailAddress[]))
+					{
+						{
+							var value = retVal as EmailAddress[];
+							if (value == null)
+								return null;
+							if(value.Length == 0)
+								return null;
+							return value[0].Value;
+						}
+					}
+
 					return retVal;
 
 				}

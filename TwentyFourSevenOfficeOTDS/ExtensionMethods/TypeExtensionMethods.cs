@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using MFiles.Server.Extensions;
+using TwentyFourSevenOfficeOTDS.TwentyFourSevenOffice.Services.PersonService;
 
 namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 {
@@ -35,8 +36,43 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					&& fi.FieldType != typeof(DateTime)
 					&& fi.FieldType != typeof(bool)
 					&& fi.FieldType != typeof(long)
+					&& fi.FieldType != typeof(EmailAddress[])
 				)
 					continue;
+				
+				// Deal with addresses.
+				if(fi.FieldType == typeof(Address))
+				{
+					// Street.
+					yield return new ColumnDefinition()
+					{
+						Ordinal = index++,
+						Name = fi.Name + " Street",
+						Type = typeof(string)
+					};
+
+					// City.
+					yield return new ColumnDefinition()
+					{
+						Ordinal = index++,
+						Name = fi.Name + " City",
+						Type = typeof(string)
+					};
+
+					// TODO: Any other address properties.
+				}
+				
+				// Deal with email addresses.
+				if(fi.FieldType == typeof(EmailAddress[]))
+				{
+					// For email addresses we need to return the actual email address.
+					yield return new ColumnDefinition()
+					{
+						Ordinal = index++,
+						Name = fi.Name,
+						Type = typeof(string)
+					};
+				}
 
 				// Return the column definition.
 				yield return new ColumnDefinition()
@@ -62,8 +98,43 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					&& pi.PropertyType != typeof(DateTime)
 					&& pi.PropertyType != typeof(bool)
 					&& pi.PropertyType != typeof(long)
+					&& pi.PropertyType != typeof(EmailAddress[])
 				)
 					continue;
+				
+				// Deal with addresses.
+				if(pi.PropertyType == typeof(Address))
+				{
+					// Street.
+					yield return new ColumnDefinition()
+					{
+						Ordinal = index++,
+						Name = pi.Name + " Street",
+						Type = typeof(string)
+					};
+
+					// City.
+					yield return new ColumnDefinition()
+					{
+						Ordinal = index++,
+						Name = pi.Name + " City",
+						Type = typeof(string)
+					};
+
+					// TODO: Any other address properties.
+				}
+
+				// Deal with email addresses.
+				if(pi.PropertyType == typeof(EmailAddress[]))
+				{
+					// For email addresses we need to return the actual email address.
+					yield return new ColumnDefinition()
+					{
+						Ordinal = index++,
+						Name = pi.Name,
+						Type = typeof(string)
+					};
+				}
 
 				// If the property doesn't have a getter then don't add it.
 				if(false == pi.CanRead)
