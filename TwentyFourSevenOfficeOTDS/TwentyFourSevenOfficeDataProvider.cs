@@ -140,7 +140,7 @@ namespace TwentyFourSevenOfficeOTDS
 				(
 					new PersonSearchParameters()
 					{
-						ChangedAfter = changedAfter
+						IsEmployee = TriState.True
 					}
 
 				);

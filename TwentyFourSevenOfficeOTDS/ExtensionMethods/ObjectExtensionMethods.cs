@@ -46,7 +46,7 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 		private static object GetValue(this object obj, string propertyOrFieldName)
 		{
 
-			// Sanity.
+			//// Sanity.
 			if (null == obj)
 				throw new ArgumentNullException(nameof(obj));
 			if(string.IsNullOrWhiteSpace(propertyOrFieldName))
@@ -62,7 +62,11 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 				// Try and read the value.
 				try
 				{
-					return property.GetValue(obj);
+					var retVal =  property.GetValue(obj);
+					// If it's a long then convert to a string.
+					if (property.PropertyType == typeof(long))
+						retVal = retVal?.ToString();
+					return retVal;
 
 				}
 				catch (Exception e)
@@ -82,7 +86,11 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 				// Try and read the value.
 				try
 				{
-					return field.GetValue(obj);
+					var retVal = field.GetValue(obj);
+					// If it's a long then convert to a string.
+					if (field.FieldType == typeof(long))
+						retVal = retVal?.ToString();
+					return retVal;
 
 				}
 				catch (Exception e)

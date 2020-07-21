@@ -34,6 +34,7 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					&& fi.FieldType != typeof(double)
 					&& fi.FieldType != typeof(DateTime)
 					&& fi.FieldType != typeof(bool)
+					&& fi.FieldType != typeof(long)
 				)
 					continue;
 
@@ -44,6 +45,8 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					Name = fi.Name,
 					Type = fi.FieldType == typeof(decimal)
 						? typeof(double) // Decimals must be doubles.
+						: fi.FieldType == typeof(long)
+						? typeof(string) // Longs should be strings
 						: fi.FieldType
 				};
 			}
@@ -58,6 +61,7 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					&& pi.PropertyType != typeof(double)
 					&& pi.PropertyType != typeof(DateTime)
 					&& pi.PropertyType != typeof(bool)
+					&& pi.PropertyType != typeof(long)
 				)
 					continue;
 
@@ -72,6 +76,8 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					Name = pi.Name,
 					Type = pi.PropertyType == typeof(decimal)
 						? typeof(double) // Decimals must be doubles.
+						: pi.PropertyType == typeof(long)
+						? typeof(string) // Longs should be strings
 						: pi.PropertyType
 				};
 			}

@@ -178,7 +178,7 @@ namespace TwentyFourSevenOfficeOTDS
 
 			// Return data if we have it.
 			return null == data
-				? new DataItem[0]
+				? new DataItem[0] 
 				: data.Cast<object>().Select(i => i.ToDataItem());
 		}
         #endregion
