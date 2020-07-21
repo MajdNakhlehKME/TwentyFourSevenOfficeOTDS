@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using MFiles.Server.Extensions;
-using TwentyFourSevenOfficeOTDS.TwentyFourSevenOffice.Services.ClientService;
 
 namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 {
@@ -70,10 +69,10 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 						retVal = retVal?.ToString();
 
 					// If it's a collection of email addresses then choose something suitable.
-					if(property.PropertyType == typeof(EmailAddress[]))
+					if(property.PropertyType == typeof(TwentyFourSevenOffice.Services.PersonService.EmailAddress[]))
 					{
 						{
-							var value = retVal as EmailAddress[];
+							var value = retVal as TwentyFourSevenOffice.Services.PersonService.EmailAddress[];
 							if (value == null)
 								return null;
 							if(value.Length == 0)
@@ -109,10 +108,10 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 						retVal = retVal?.ToString();
 
 					// If it's a collection of email addresses then choose something suitable.
-					if(field.FieldType == typeof(EmailAddress[]))
+					if(field.FieldType == typeof(TwentyFourSevenOffice.Services.PersonService.EmailAddress[]))
 					{
 						{
-							var value = retVal as EmailAddress[];
+							var value = retVal as TwentyFourSevenOffice.Services.PersonService.EmailAddress[];
 							if (value == null)
 								return null;
 							if(value.Length == 0)
