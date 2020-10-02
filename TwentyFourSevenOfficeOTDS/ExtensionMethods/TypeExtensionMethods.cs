@@ -39,6 +39,7 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					&& fi.FieldType != typeof(long)
 					&& fi.FieldType != typeof(EmailAddress[])
 					&& fi.FieldType != typeof(Address)
+					&& fi.FieldType != typeof(PhoneNumber[])
 				)
 					continue;
 				
@@ -80,6 +81,18 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					continue;
 				}
 
+				//Deal with phone numbers.
+				if(fi.FieldType == typeof(PhoneNumber[]))
+                {
+					yield return new ColumnDefinition()
+					{
+						Ordinal = index++,
+						Name = fi.Name,
+						Type = typeof(string)
+					};
+					continue;
+                }
+
 				// Return the column definition.
 				yield return new ColumnDefinition()
 				{
@@ -106,6 +119,7 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					&& pi.PropertyType != typeof(long)
 					&& pi.PropertyType != typeof(EmailAddress[])
 					&& pi.PropertyType != typeof(Address)
+					&& pi.PropertyType != typeof(PhoneNumber[])
 				)
 					continue;
 				
@@ -146,8 +160,20 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 					};
 				}
 
+				// Deal with phone numbers.
+				if (pi.PropertyType == typeof(PhoneNumber[]))
+				{
+					// For phone numbers we need to return the actual phone number.
+					yield return new ColumnDefinition()
+					{
+						Ordinal = index++,
+						Name = pi.Name,
+						Type = typeof(string)
+					};
+				}
+
 				// If the property doesn't have a getter then don't add it.
-				if(false == pi.CanRead)
+				if (false == pi.CanRead)
 					continue;
 
 				// Return the column definition.

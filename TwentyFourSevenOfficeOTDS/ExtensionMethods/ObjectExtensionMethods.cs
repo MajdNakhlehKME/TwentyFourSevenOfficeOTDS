@@ -105,6 +105,19 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 						}
 					}
 
+					// If it's a collection of email addresses then choose something suitable.
+					else if (property.PropertyType == typeof(TwentyFourSevenOffice.Services.PersonService.PhoneNumber[]))
+					{
+						{
+							var value = retVal as TwentyFourSevenOffice.Services.PersonService.PhoneNumber[];
+							if (value == null)
+								return null;
+							if (value.Length == 0)
+								return null;
+							return value[0].Value;
+						}
+					}
+
 					return retVal;
 
 				}
@@ -162,6 +175,19 @@ namespace TwentyFourSevenOfficeOTDS.ExtensionMethods
 							if (value == null)
 								return null;
 							if(value.Length == 0)
+								return null;
+							return value[0].Value;
+						}
+					}
+
+					// If it's a collection of phone numbers then choose something suitable.
+					else if (field.FieldType == typeof(TwentyFourSevenOffice.Services.PersonService.PhoneNumber[]))
+					{
+						{
+							var value = retVal as TwentyFourSevenOffice.Services.PersonService.PhoneNumber[];
+							if (value == null)
+								return null;
+							if (value.Length == 0)
 								return null;
 							return value[0].Value;
 						}

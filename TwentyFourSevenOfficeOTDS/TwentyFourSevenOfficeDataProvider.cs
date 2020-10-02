@@ -140,8 +140,7 @@ namespace TwentyFourSevenOfficeOTDS
 				(
 					new PersonSearchParameters()
 					{
-						IsEmployee = TriState.True,
-						Id = 3005346
+						//IsEmployee = TriState.True
 					}
 
 				);
